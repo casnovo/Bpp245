@@ -5,13 +5,10 @@ namespace backend\modules\sarabun\models;
 use Yii;
 use yii\behaviors\BlameableBehavior;
 use yii\behaviors\TimestampBehavior;
-use yii\console\Exception;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\behaviors\AttributeBehavior;
 use yii\db\ActiveRecord;
-use yii\web\UploadedFile;
-use yii\helpers\BaseFileHelper;
 use yii\helpers\Json;
 use yii\helpers\Html;
 
@@ -37,7 +34,7 @@ use yii\helpers\Html;
  * @property Unit $unit
  * @property string $ref
  */
-class Sarabun extends \yii\db\ActiveRecord
+class Sarabun extends ActiveRecord
 {
     const UPLOAD_FOLDER = 'sarabun';
     public $docs;
@@ -62,7 +59,7 @@ class Sarabun extends \yii\db\ActiveRecord
             [['years'], 'string', 'max' => 4],
             [['books'], 'string', 'max' => 45],
             [['detills', 'docurl', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'string', 'max' => 100],
-            [['kinds'], 'string', 'max' => 5],
+            [['kinds'], 'string', 'max' => 20],
             [['kinds2'], 'string', 'max' => 20],
             [['docs'], 'file', 'maxFiles' => 1],
             [['collection_id'], 'exist', 'skipOnError' => true, 'targetClass' => Collection::class, 'targetAttribute' => ['collection_id' => 'id']],
@@ -80,7 +77,7 @@ class Sarabun extends \yii\db\ActiveRecord
             'years' => 'ปี',
             'books' => 'เลขที่หนังสือ',
             'detills' => 'เรื่อง',
-            'bookdate' => 'วันที่เอกสาร',
+            'bookdate' => 'ลงวันที่',
             'docurl' => 'เอกสาร',
             'kinds' => 'ชนิดหนังสือ',
             'kinds2' => 'ประเภทหนังสือ',
@@ -91,6 +88,11 @@ class Sarabun extends \yii\db\ActiveRecord
             'unit_id' => 'หน่วยงาน',
             'collection_id' => 'แฟ้ม',
             'ref' => 'คียอ้างอิงสำหรับเจสัน',
+            'bookname' => 'ทะเบียนรับ/ส่ง',
+            'Idyear'=>'เลขทะเบียน',
+            'bookkindname'=>'ประเภทเอกสาร',
+            'Fullbooks'=>'ที่หนังสือ',
+            'unit'=>'หน่วย รับ/ส่ง',
         ];
     }
 
@@ -113,6 +115,10 @@ class Sarabun extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Unit::class, ['id' => 'unit_id']);
     }
+    public function getUser()
+    {
+        return $this->hasOne(Unit::class, ['id' => 'created_by']);
+    }
 
     /**
      * {@inheritdoc}
@@ -126,7 +132,12 @@ class Sarabun extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            BlameableBehavior::className(),
+            [
+                'class' => BlameableBehavior::className(),
+                'value' => Yii::$app->user->identity->Name,
+
+            ],
+         //   BlameableBehavior::className(),
             TimestampBehavior::className(),
             [
                 'class' => AttributeBehavior::className(),
@@ -140,6 +151,7 @@ class Sarabun extends \yii\db\ActiveRecord
         ];
     }
 
+
     public function getThaiyear()
     {
         return substr((string)((int)date("Y") + 543), 2);
@@ -151,13 +163,13 @@ class Sarabun extends \yii\db\ActiveRecord
         $items = [
 
             'book' => [
-                1 => 'หนังสือรับ',
-                2 => 'หนังสือส่ง',
+                'หนังสือรับ' => 'หนังสือรับ',
+                'หนังสือส่ง' => 'หนังสือส่ง',
             ],
             'bookkind' => [
-                1 => 'วิทยุ',
-                2 => 'หนังสือ',
-                3 => 'หนังสือภายนอก',
+                'วิทยุ' => 'วิทยุ',
+                'หนังสือ' => 'หนังสือ',
+                'หนังสือภายนอก' => 'หนังสือภายนอก',
             ],
         ];
         return ArrayHelper::getValue($items, $key, []);
@@ -174,14 +186,22 @@ class Sarabun extends \yii\db\ActiveRecord
         return self::itemsAlias('bookkind');
     }
 
-    public function getItemBookName()
+    public function getBookName()
     {
         return ArrayHelper::getValue($this->getItemBook(), $this->kinds);
     }
 
-    public function getItemBookkindName()
+    public function getBookkindName()
     {
         return ArrayHelper::getValue($this->getItemBookkind(), $this->kinds2);
+    }
+    public function getIdyear()
+    {
+        return $this->id.'/'.$this->years;;
+    }
+    public function getFullbooks()
+    {
+        return $this->unit->codename.'/'.$this->books;
     }
 
     public static function getUploadPath()
@@ -200,7 +220,6 @@ class Sarabun extends \yii\db\ActiveRecord
         if(is_array($files)){
             foreach ($files as $key => $value) {
                 if($type=='file'){
-                    $urls =
                     $initial[] = "<div class='file-preview-other'></div>";
                 }elseif($type=='config'){
                     $initial[] = [

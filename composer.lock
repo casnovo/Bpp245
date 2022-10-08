@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "49e5bb5da6226c27cb330f058d79d763",
+    "content-hash": "53f98425fdc82fc5758d850de9ccd8f2",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -229,6 +229,51 @@
                 "source": "https://github.com/cebe/markdown"
             },
             "time": "2018-03-26T11:24:36+00:00"
+        },
+        {
+            "name": "dixonsatit/yii2-thai-year-formatter",
+            "version": "0.9.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dixonsatit/yii2-thai-year-formatter.git",
+                "reference": "7a6735dc576846785a9367a2e017c776b1d347e3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dixonsatit/yii2-thai-year-formatter/zipball/7a6735dc576846785a9367a2e017c776b1d347e3",
+                "reference": "7a6735dc576846785a9367a2e017c776b1d347e3",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "dixonsatit\\thaiYearFormatter\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "satit seethaphon",
+                    "email": "dixonsatit@gmail.com"
+                }
+            ],
+            "description": "Convert Year to Thai Buddhist Era Year",
+            "keywords": [
+                "extension",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/dixonsatit/yii2-thai-year-formatter/issues",
+                "source": "https://github.com/dixonsatit/yii2-thai-year-formatter",
+                "wiki": "https://github.com/dixonsatit/yii2-thai-year-formatter/wiki"
+            },
+            "time": "2015-07-09T03:52:56+00:00"
         },
         {
             "name": "doctrine/lexer",

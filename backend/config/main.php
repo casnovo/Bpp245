@@ -8,6 +8,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-backend',
+    'language'=>'th_TH',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
@@ -17,6 +18,9 @@ return [
         ],
     ],
     'components' => [
+        'thaiFormatter'=>[
+            'class'=>'dixonsatit\thaiYearFormatter\ThaiYearFormatter',
+        ],
         'view' => [
             'theme' => [
                 'pathMap' => [

@@ -3,11 +3,13 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use backend\modules\sarabun\models\Sarabun;
+
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\sarabun\models\SarabunSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sarabuns';
+$this->title = 'ระบบงานสารบรรณ';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -17,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <?= Html::a('Create Sarabun', ['create'], ['class' => 'btn btn-success']) ?>
+                            <?= Html::a('บันทึกทะเบียนรับ/ส่ง', ['create'], ['class' => 'btn btn-success']) ?>
                         </div>
                     </div>
 
@@ -29,17 +31,38 @@ $this->params['breadcrumbs'][] = $this->title;
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
+                            // ['class' => 'yii\grid\SerialColumn'],
+                            // 'id',
+                            // 'years',
+                            'Idyear',
+                            [
+                                'attribute'=>'kinds',
+                                'filter'=>Sarabun::itemsAlias('book'),
 
-                            'id',
-                            'years',
+                            ],
+                            [
+                                'attribute'=> 'kinds2',
+                                'filter'=>Sarabun::itemsAlias('bookkind'),
+
+                            ],
+                             // 'unit_id',
+                            [
+                                'attribute' => 'unit',
+                                'value' => 'unit.name', //relation name with their attribute
+                            ],
                             'books',
+                            [
+                                'attribute' => 'bookdate',
+                                'value' => function ($model) {
+                                    return Yii::$app->thaiFormatter->asDate($model->bookdate, 'long');
+                                }
+                            ],
+
                             'detills',
-                            'bookdate',
+                            //'bookdate',
                             //'docurl',
-                            //'kinds',
-                            //'kinds2',
-                            //'created_at',
+
+                          //'created_at',
                             //'updated_at',
                             //'created_by',
                             //'updated_by',

@@ -11,6 +11,7 @@ use backend\modules\sarabun\models\sarabun;
  */
 class SarabunSearch extends sarabun
 {
+    public $bookname;
     /**
      * {@inheritdoc}
      */
@@ -18,7 +19,7 @@ class SarabunSearch extends sarabun
     {
         return [
             [['id', 'unit_id', 'collection_id'], 'integer'],
-            [['years', 'books', 'detills', 'bookdate', 'docurl', 'kinds', 'kinds2', 'created_at', 'updated_at', 'created_by', 'updated_by'], 'safe'],
+            [['years', 'books', 'detills', 'bookdate', 'docurl', 'kinds', 'kinds2', 'created_at', 'updated_at', 'created_by', 'updated_by','bookname'], 'safe'],
         ];
     }
 
@@ -47,6 +48,7 @@ class SarabunSearch extends sarabun
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+
 
         $this->load($params);
 

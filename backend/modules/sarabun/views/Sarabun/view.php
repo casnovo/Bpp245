@@ -31,10 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $model,
                         'attributes' => [
                             'id',
+                            'Idyear',
                             'years',
                             'books',
                             'detills',
-                            'bookdate',
+                            ['attribute'=>'bookdate','value'=>Yii::$app->thaiFormatter->asDate($model->bookdate, 'long')],
                             ['attribute'=>'docurl','value'=>$model->listDownloadFiles('docurl'),'format'=>'html'],
                             'kinds',
                             'kinds2',
@@ -42,8 +43,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'updated_at',
                             'created_by',
                             'updated_by',
-                            'unit_id',
-                            'collection_id',
+                            'unit.name',
+                            'collection.name',
                         ],
                     ]) ?>
                 </div>

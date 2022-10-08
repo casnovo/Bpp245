@@ -75,7 +75,11 @@ class SarabunController extends Controller
 
             $model->docurl = $this->uploadSingleFile($model);
             //$model->docs = $this->uploadMultipleFile($model);
-
+            if ($model->kinds=='หนังสือส่ง') {
+                $model->books = '0030.34(245)/'.$model->books ;
+            } else {
+                $model->books = $model->getFullbooks();
+            }
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -102,6 +106,7 @@ class SarabunController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             $model->docurl = $this->uploadSingleFile($model,$tempDocs);
            // $model->docs = $this->uploadMultipleFile($model,$tempDocs);
+            $model->books = $model->getFullbooks();
             if($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
             }
