@@ -117,6 +117,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dixonsatit/yii2-thai-year-formatter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/bower-asset/bootstrap-datepicker" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/2amigos/yii2-date-picker-widget" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kartik-v/yii2-dialog" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/kartik-v/yii2-detail-view" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
