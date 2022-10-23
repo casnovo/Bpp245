@@ -18,6 +18,7 @@ return [
         ],
     ],
     'components' => [
+
         'thaiFormatter'=>[
             'class'=>'dixonsatit\thaiYearFormatter\ThaiYearFormatter',
         ],

@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use backend\modules\sarabun\models\Sarabun;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\sarabun\models\SarabunSearch */
@@ -55,7 +56,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'bookdate',
                                 'value' => function ($model) {
                                     return Yii::$app->thaiFormatter->asDate($model->bookdate, 'long');
-                                }
+                                },
+                                'filter' => DatePicker::widget([
+                                    'language' => 'th',
+                                    'model' => $searchModel,
+                                    'attribute' => 'bookdate',
+                                    'options' => ['placeholder' => 'เลือกวันที่'],
+                                    'pluginOptions' => [
+                                        'autoclose' => true,
+                                        'format' => 'yyyy-mm-dd'
+                                    ]
+                                ]),
                             ],
 
                             'detills',

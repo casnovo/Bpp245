@@ -115,6 +115,8 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/bower-asset/jquery-ui" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/yiisoft/yii2-jui" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dixonsatit/yii2-thai-year-formatter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/bower-asset/bootstrap-datepicker" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/2amigos/yii2-date-picker-widget" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
